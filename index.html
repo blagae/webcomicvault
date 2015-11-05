@@ -17,7 +17,11 @@
 		</section>
 		<section>
 			<div>
-				<p>{{contents}}</p>
+				<p>{{welcome}}</p>
+				<p>{{comicIntro}}</p>
+				<ul>
+					<li ng-repeat="comic in comics">{{comic}}</li>
+				</ul>
 			</div>
 		</section>
 	</body>
