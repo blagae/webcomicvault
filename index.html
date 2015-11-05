@@ -2,8 +2,23 @@
 <html>
 	<head>
 		<title>The Comic Vault</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="/scripts/angularApp.js"></script>
+		<link href="/styles/style.css" />
 	</head>
-	<body>
-	Test
+	<body ng-app="comicvault" ng-controller="Main">
+		<section>
+		<nav>
+			<a href="/settings">Settings</a>
+			<a href="/comics">My webcomics</a>
+			<a href="/favs">My favorites</a>
+			<a href="/merch">Merchandise</a>
+		</nav>
+		</section>
+		<section>
+			<div>
+			Welcome to the Comic Vault, your daily fix for webcomics.
+			</div>
+		</section>
 	</body>
 </html>
