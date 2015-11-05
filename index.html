@@ -20,7 +20,7 @@
 				<p>{{welcome}}</p>
 				<p>{{comicIntro}}</p>
 				<ul>
-					<li ng-repeat="comic in comics">{{comic}}</li>
+					<li ng-repeat="comic in comics"><a href="{{comic.url}}">{{comic.title}}</a></li>
 				</ul>
 			</div>
 		</section>
