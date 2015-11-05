@@ -7,3 +7,13 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+var mongoose = require('mongoose');
+var Comics = mongoose.model('Comics');
+
+router.get('/comics', function(req, res, next) {
+	Comics.find(function(err, comics) {
+		if(err){ return next(err);}
+		res.json(comics);
+	});
+});
