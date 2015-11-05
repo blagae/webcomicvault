@@ -7,6 +7,13 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 require('./models/Comics');
+var path = require('path');
+var msf = require('mongoose-simple-fixtures');
+var dir = path.resolve(__dirname, "./models/fixtures");
+ 
+msf(dir, function(err, results) {
+    if (err) console.log("loading data failed"+err);
+});
 
 mongoose.connect('mongodb://localhost/comics');
 
