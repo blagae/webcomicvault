@@ -1,8 +1,8 @@
-var app = angular.module('comicvault', []);
+var app = angular.module('webcomicvault', []);
 
 app.controller('Main', ['$scope',
 function($scope){
-  $scope.welcome = 'Welcome to the Comic Vault, your daily fix for webcomics.'
+  $scope.welcome = 'Welcome to the Web Comic Vault, your daily fix for online comics.'
   $scope.comicIntro = 'Your currently saved comics are:';
   $scope.comics = [{title: 'XKCD', url: 'http://xkcd.com'},
 	{title: 'Questionable Content', url: 'http://questionablecontent.net'},
