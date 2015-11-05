@@ -17,3 +17,12 @@ router.get('/comics', function(req, res, next) {
 		res.json(comics);
 	});
 });
+
+router.post('/comics', function(req, res, next) {
+	var comic = new Comics(req.body);
+	comic.save(function(err, comic){
+		if(err){ return next(err); }
+
+		res.json(comic);
+	});
+});
