@@ -14,6 +14,9 @@
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
 	"mongoose": "~4.2.4",
-	"mongoose-simple-fixtures": "~1.8.1"
+	"mongoose-simple-fixtures": "~1.8.1",
+	"jsonwebtoken": "~5.4.0",
+	"passport": "~0.3.0",
+	"passport-local": "~1.0.0"
   }
 }
