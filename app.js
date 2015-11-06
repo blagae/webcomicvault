@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var passport = require('passport');
-require('./models/Comics');
-require('./models/Users');
+require('./models/Comic');
+require('./models/User');
 require('./config/passport');
 var path = require('path');
 var msf = require('mongoose-simple-fixtures');
@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost/comics');
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

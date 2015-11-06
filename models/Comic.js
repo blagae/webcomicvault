@@ -5,4 +5,4 @@ var ComicSchema = new mongoose.Schema({
   url: String
 });
 
-mongoose.model('Comics', ComicSchema);
+mongoose.model('Comic', ComicSchema);
