@@ -17,7 +17,7 @@ function($stateProvider, $urlRouterProvider) {
 	  }
     });
 
-  //$urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('home');
 }]);
 
 app.controller('Comics', [
@@ -28,11 +28,11 @@ function($scope, $stateParams, comics){
 	$scope.comic = comics.comic[$stateParams.id]; // TODO: might have to be plural ?
 }]);
 
-app.controller('Main', ['$scope',
-function($scope){
+app.controller('Main', ['$scope', 'comics',
+function($scope, comics){
   $scope.welcome = 'Welcome to the Web Comic Vault, your daily fix for online comics.'
   $scope.comicIntro = 'Your currently saved comics are:';
-  $scope.comics = [];
+  $scope.comics = comics.comics;
 	
   $scope.addComic = function(){
     $scope.comics.push({title: $scope.title, url: cleanUrl($scope.url)});
