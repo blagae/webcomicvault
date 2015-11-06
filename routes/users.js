@@ -15,7 +15,7 @@ router.post('/register', function(req, res, next){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
-  var user = new User();
+  var user = new Users();
 
   user.username = req.body.username;
 

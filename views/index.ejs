@@ -9,20 +9,23 @@
 	</head>
 	<body ng-app="webcomicvault">
 		<section>
-		<nav>
-			<a href="/settings">Settings</a>
-			<a href="/comics">My webcomics</a>
-			<a href="/favs">My favorites</a>
-			<a href="/merch">Merchandise</a>
-		</nav>
+			<nav ng-controller="Nav">
+				<a href="/settings" ng-show="isLoggedIn()">Settings</a>
+				<a href="/comics" ng-show="isLoggedIn()">My webcomics</a>
+				<a href="/favs" ng-show="isLoggedIn()">My favorites</a>
+				<a href="/merch">Merchandise</a>
+				<a href="" ng-show="isLoggedIn()" ng-click="logOut()">Log Out</a>
+				<a href="/#/login" ng-hide="isLoggedIn()">Log In</a>
+				<a href="/#/register" ng-hide="isLoggedIn()">Register</a>
+			</nav>
+			<div>
+				<h1>Web Comic Vault</h1>
+			</div>
 		</section>
 		<section>
 			<ui-view></ui-view>
 		</section>
 		<script type="text/ng-template" id="/home.html">
-			<div>
-				<h1>Web Comic Vault</h1>
-			</div>
 			<div>
 				<p>{{welcome}}</p>
 				<p>{{comicIntro}}</p>
@@ -36,17 +39,65 @@
 				<button type="submit">Add a comic</button>
 			</form>
 		</script>
-		<!--script type="text/ng-template" id="/comics.html">
-		  <div class="page-header">
-			<h3>
-			  <a ng-show="comic.url" href="{{comic.url}}">
-				{{comic.title}}
-			  </a>
-			  <span ng-hide="comic.url">
-				{{comic.title}}
-			  </span>
-			</h3>
+		<script type="text/ng-template" id="/register.html">
+			<div ng-show="error">
+			<span>{{ error.message }}</span>
+			</div>
+
+			<form ng-submit="register()"
+			style="margin-top:30px;">
+			<h3>Register</h3>
+
+			<div class="form-group">
+				<input type="text"
+				class="form-control"
+				placeholder="Username"
+				ng-model="user.username"></input>
+			</div>
+			<div class="form-group">
+				<input type="password"
+				class="form-control"
+				placeholder="Password"
+				ng-model="user.password"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Register</button>
+			</form>
+		</script>
+		<script type="text/ng-template" id="/login.html">
+		  <div ng-show="error" class="alert alert-danger row">
+			<span>{{ error.message }}</span>
 		  </div>
+
+		  <form ng-submit="logIn()"
+			style="margin-top:30px;">
+			<h3>Log In</h3>
+
+			<div class="form-group">
+			  <input type="text"
+			  class="form-control"
+			  placeholder="Username"
+			  ng-model="user.username"></input>
+			</div>
+			<div class="form-group">
+			  <input type="password"
+			  class="form-control"
+			  placeholder="Password"
+			  ng-model="user.password"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Log In</button>
+		  </form>
+		  </script>
+		<!--script type="text/ng-template" id="/comics.html">
+			<div class="page-header">
+			<h3>
+				<a ng-show="comic.url" href="{{comic.url}}">
+				{{comic.title}}
+				</a>
+				<span ng-hide="comic.url">
+				{{comic.title}}
+				</span>
+			</h3>
+			</div>
 		</script-->
 	</body>
 </html>
