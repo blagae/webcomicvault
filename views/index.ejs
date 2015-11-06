@@ -3,10 +3,11 @@
 	<head>
 		<title>The Web Comic Vault</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
 		<script src="/javascripts/angularApp.js"></script>
 		<link rel="stylesheet" href="/stylesheets/style.css" />
 	</head>
-	<body ng-app="webcomicvault" ng-controller="Main">
+	<body ng-app="webcomicvault">
 		<section>
 		<nav>
 			<a href="/settings">Settings</a>
@@ -16,6 +17,12 @@
 		</nav>
 		</section>
 		<section>
+			<ui-view></ui-view>
+		</section>
+		<script type="text/ng-template" id="/home.html">
+			<div>
+				<h1>Web Comic Vault</h1>
+			</div>
 			<div>
 				<p>{{welcome}}</p>
 				<p>{{comicIntro}}</p>
@@ -23,13 +30,23 @@
 					<li ng-repeat="comic in comics"><a href="{{comic.url}}">{{comic.title}}</a></li>
 				</ul>
 			</div>
-		</section>
-		<section>
 			<form ng-submit="addComic()">
 				<input type="text" ng-model="title"></input>
 				<input type="text" ng-model="url"></input>
 				<button type="submit">Add a comic</button>
 			</form>
-		</section>
+		</script>
+		<!--script type="text/ng-template" id="/comics.html">
+		  <div class="page-header">
+			<h3>
+			  <a ng-show="comic.url" href="{{comic.url}}">
+				{{comic.title}}
+			  </a>
+			  <span ng-hide="comic.url">
+				{{comic.title}}
+			  </span>
+			</h3>
+		  </div>
+		</script-->
 	</body>
 </html>
