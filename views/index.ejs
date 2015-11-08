@@ -10,6 +10,7 @@
 	<body ng-app="webcomicvault">
 		<section>
 			<nav ng-controller="Nav">
+				<span ng-show="isLoggedIn()">Welcome {{currentUser}}</span>
 				<a href="/user/comics" ng-show="isLoggedIn()">My webcomics</a>
 				<a href="/comics">All webcomics</a>
 				<a href="/settings" ng-show="isLoggedIn()">Settings</a>

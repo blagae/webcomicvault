@@ -53,7 +53,7 @@ app.controller('Nav', [
 'auth',
 function($scope, auth){
   $scope.isLoggedIn = auth.isLoggedIn;
-  $scope.currentUser = auth.currentUser;
+  $scope.currentUser = auth.currentUser();
   $scope.logOut = auth.logOut;
 }]);
 
@@ -64,13 +64,17 @@ function($scope, comics){
   $scope.comics = comics.comics;
 	
   $scope.addComic = function(){
-    $scope.comics.push({title: $scope.title, url: cleanUrl($scope.url)});
+	if(!$scope.title || $scope.title === '') { return; }
+	  comics.create({
+		title: $scope.title,
+		url: $scope.url,
+	  });
     $scope.title = '';
     $scope.url = '';
   };
 }
 ]);
-app.factory('comics', ['$http', function($http){
+app.factory('comics', ['$http', 'auth', function($http, auth){
   var o = {
   comics: []
   };
@@ -79,6 +83,13 @@ app.factory('comics', ['$http', function($http){
       angular.copy(data, o.comics);
     });
   };
+  o.create = function(comic) {
+  return $http.post('/comics', comic, {
+    headers: {Authorization: 'Bearer '+auth.getToken()} // TODO: remember this
+  }).success(function(data){
+    o.comics.push(data);
+  });
+};
 
   return o;
 }]);
@@ -128,7 +139,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 	};
 	
   return auth;
-}])
+}]);
 
 app.controller('Auth', [
 '$scope',
