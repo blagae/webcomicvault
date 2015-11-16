@@ -29,4 +29,9 @@ node_modules
 
 # Optional npm cache directory
 .npm
+
+# Netbeans files
 /nbproject/*
+
+# Gulp dest files should be ignored
+public/*

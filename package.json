@@ -11,13 +11,24 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "express-jwt": "~3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.5.1",
+    "jsonwebtoken": "~5.4.0",
+    "mongoose": "~4.2.4",
+    "mongoose-simple-fixtures": "~1.8.1",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0",
-	"mongoose": "~4.2.4",
-	"mongoose-simple-fixtures": "~1.8.1",
-	"jsonwebtoken": "~5.4.0",
-	"passport": "~0.3.0",
-	"passport-local": "~1.0.0",
-	"express-jwt": "~3.1.0"
-  }
+    "passport": "~0.3.0",
+    "passport-local": "~1.0.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "main": "app.js",
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
