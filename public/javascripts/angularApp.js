@@ -51,7 +51,6 @@ app.controller('Comics', [
 '$stateParams',
 'comic',
 function($scope, $stateParams, comic){
-	$scope.test = "workings";
 	$scope.comics = comic;
 }]);
 
