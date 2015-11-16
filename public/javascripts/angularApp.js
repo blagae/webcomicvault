@@ -11,10 +11,16 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: '/home.html',
       controller: 'Main',
 	  resolve: {
-		postPromise: ['comics', function(comics){
-		  return comics.getAll();
+		postPromise: ['comics', 'auth', function(comics, auth){
+			if (auth.isLoggedIn()) {
+				var user = auth.currentUser();
+				return comics.getForUser(user);
+			}
+			else {
+				return comics.getAll();
+			}
 		}]
-	  }
+	  },
     })
 	.state('login', {
 	  url: '/login',
@@ -43,9 +49,10 @@ function($stateProvider, $urlRouterProvider) {
 app.controller('Comics', [
 '$scope',
 '$stateParams',
-'comics',
-function($scope, $stateParams, comics){
-	$scope.comic = comics.comic[$stateParams.id]; // TODO: might have to be plural ?
+'comic',
+function($scope, $stateParams, comic){
+	$scope.test = "workings";
+	$scope.comics = comic;
 }]);
 
 app.controller('Nav', [
@@ -80,6 +87,11 @@ app.factory('comics', ['$http', 'auth', function($http, auth){
   };
     o.getAll = function() {
 		return $http.get('/comics').success(function(data){
+      angular.copy(data, o.comics);
+    });
+  };
+  o.getForUser = function(user) {
+	return $http.get('/user/' + user + '/comics').success(function(data){
       angular.copy(data, o.comics);
     });
   };

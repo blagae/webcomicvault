@@ -9,6 +9,27 @@ router.get('/', function(req, res, next) {
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Comic = mongoose.model('Comic');
+
+router.param('user', function(req, res, next, id) {
+	console.log()
+  var query = User.findOne({'username': id});
+
+  query.exec(function (err, user){
+    if (err) { return next(err); }
+    if (!user) { return next(new Error('can\'t find user')); }
+
+    req.user = user;
+    return next();
+  });
+});
+
+router.get('/:user/comics', function(req, res, next) {
+	Comic.find({'_id': { $in: req.user.comics}}, function(err, comics) {
+		if(err){ return next(err);}
+		res.json(comics);
+	});
+});
 
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password){

@@ -1,6 +1,6 @@
 [
-    {"title": "XKCD", "url": "http://xkcd.com"},
-	{"title": "Questionable Content", "url": "http://questionablecontent.net"},
-	{"title": "Oglaf", "url": "http://oglaf.com"},
-	{"title": "A Softer World", "url": "http://asofterworld.com"}
+    {"_id": "100000000000000000000001", "title": "XKCD", "url": "http://xkcd.com"},
+	{"_id": "100000000000000000000002", "title": "Questionable Content", "url": "http://questionablecontent.net"},
+	{"_id": "100000000000000000000003", "title": "Oglaf", "url": "http://oglaf.com"},
+	{"_id": "100000000000000000000004", "title": "A Softer World", "url": "http://asofterworld.com"}
 ]
