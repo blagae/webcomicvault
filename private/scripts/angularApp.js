@@ -41,9 +41,35 @@ function($stateProvider, $urlRouterProvider) {
 		  $state.go('home');
 		}
 	  }]
+	})
+	.state('user', {
+	  url: '/user',
+	  templateUrl: '/user.html',
+	  controller: 'User',
+	  onEnter: ['$state', 'auth', function($state, auth){
+		if(!auth.isLoggedIn()){
+		  $state.go('home');
+		}
+	  }],
+	  resolve: {
+		postPromise: ['auth', function(auth){
+			if (auth.isLoggedIn()) {
+				return auth.currentUser();
+			}
+		}]
+	  },
 	});
 
     $urlRouterProvider.otherwise('home');
+}]);
+
+app.controller('User', [
+'$scope',
+'$stateParams',
+'auth',
+function($scope, $stateParams, auth){
+	alert("omg");
+	$scope.user = auth.currentUser();
 }]);
 
 app.controller('Comics', [

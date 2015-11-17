@@ -13,9 +13,8 @@
 			<nav ng-controller="Nav">
 				<span ng-show="isLoggedIn()">Welcome {{currentUser}}</span>
 				<a href="/#/user/comics" ng-show="isLoggedIn()">My webcomics</a>
-				<a href="/comics">All webcomics</a>
-				<a href="/settings" ng-show="isLoggedIn()">Settings</a>
-				<a href="/merch">Merchandise</a>
+				<a href="/#/comics">All webcomics</a>
+				<a href="/#/user" ng-show="isLoggedIn()">My account</a>
 				<a href="" ng-show="isLoggedIn()" ng-click="logOut()">Log Out</a>
 				<a href="/#/login" ng-hide="isLoggedIn()">Log In</a>
 				<a href="/#/register" ng-hide="isLoggedIn()">Register</a>
@@ -27,6 +26,9 @@
 		<section>
 			<ui-view></ui-view>
 		</section>
+		<script type="text/ng-template" id="/user.html">
+		{{user}}
+		</script>
 		<script type="text/ng-template" id="/comics.html">
 				<ul>
 					<li ng-repeat="com in comics"><a href="{{com.url}}">{{com.title}}</a></li>

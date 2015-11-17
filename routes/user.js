@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var jwt = require('express-jwt');
+// TODO: make env variable
+var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', auth, function(req, res, next) {
+  res.json(auth);
 });
 
 var mongoose = require('mongoose');
