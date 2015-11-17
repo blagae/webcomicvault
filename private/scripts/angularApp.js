@@ -146,7 +146,9 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 	  });
 	};
 	auth.logOut = function(){
-	  $window.localStorage.removeItem('webcomicvault-token');
+	  return $http.get('/user/logout').success(function(data){
+		$window.localStorage.removeItem('webcomicvault-token');
+	  });
 	};
 	
   return auth;
