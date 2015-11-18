@@ -3,6 +3,11 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minify = require('gulp-minify-css');
+var del = require('del');
+ 
+gulp.task('clean', function () {
+	return del(['public/**/*']);
+});
 
 gulp.task('styles', function() {
 	return gulp.src('private/styles/*.css')
@@ -24,4 +29,4 @@ gulp.task('images', function() {
 	.pipe(gulp.dest('public/images'));
 });
 
-gulp.task('default', gulp.parallel('styles', 'scripts', 'images'));
+gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'images')));
