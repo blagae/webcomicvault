@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var Comic = mongoose.model('Comic');
 
 router.get('/comics', function(req, res, next) {
-	Comic.find(function(err, comics) {
+	Comic.find().sort({likes: 'descending'}).find(function(err, comics) {
 		if(err){ return next(err);}
 		res.json(comics);
 	});

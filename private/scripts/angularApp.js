@@ -68,7 +68,6 @@ app.controller('User', [
 '$stateParams',
 'auth',
 function($scope, $stateParams, auth){
-	alert("omg");
 	$scope.user = auth.currentUser();
 }]);
 
