@@ -15,7 +15,6 @@ var User = mongoose.model('User');
 var Comic = mongoose.model('Comic');
 
 router.param('user', function(req, res, next, id) {
-	console.log()
   var query = User.findOne({'username': id});
 
   query.exec(function (err, user){

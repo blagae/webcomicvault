@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var ComicSchema = new mongoose.Schema({
-  title: String,
+  title: { type: String, unique: true },
   url: String,
   likes: { type: Number, default: 0 }
 });

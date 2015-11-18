@@ -1,0 +1,16 @@
+[
+    {
+	"title": "Glass Trolling",
+	"url": "https://imgs.xkcd.com/comics/glass_trolling.png",
+	"sequence": 1304,
+	"alt": "Plus, when someone finally grabs your glasses and stomps on them, it costs way less than $1,500 to replace them.",
+	"comic": {"_id": "100000000000000000000001"}
+	},
+	{
+	"title": "With apologies to Robert Frost",
+	"url": "https://imgs.xkcd.com/comics/with_apologies_to_robert_frost.png",
+	"sequence": 312,
+	"alt": "Some say the world will end in fire; some say in segfaults.",
+	"comic": {"_id": "100000000000000000000001"}
+	}
+]
