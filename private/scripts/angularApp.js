@@ -14,10 +14,12 @@ function($stateProvider, $urlRouterProvider) {
 		postPromise: ['comics', 'auth', function(comics, auth){
 			if (auth.isLoggedIn()) {
 				var user = auth.currentUser();
-				return comics.getForUser(user);
+				comics.getForUser(user);
+				return comics.comics;
 			}
 			else {
-				return comics.getAll();
+				comics.getAll();
+				return comics.comics;
 			}
 		}]
 	  },
@@ -57,10 +59,28 @@ function($stateProvider, $urlRouterProvider) {
 				return auth.currentUser();
 			}
 		}]
-	  },
-	});
+	  }
+	})
+	.state('comic', {
+	  url: '/comics/{comicid}',
+	  templateUrl: '/comic.html',
+	  controller: 'Comic'
+	})
+	;
 
     $urlRouterProvider.otherwise('home');
+}]);
+
+app.controller('Comic', [
+'$scope',
+'$stateParams',
+'comics',
+'strips',
+function($scope, $stateParams, comics, strips) {
+	strips.getAll($stateParams.comicid);
+	$scope.strips = strips.strips;
+	comics.getComic($stateParams.comicid);
+	$scope.comic = comics.comics;
 }]);
 
 app.controller('User', [
@@ -69,14 +89,6 @@ app.controller('User', [
 'auth',
 function($scope, $stateParams, auth){
 	$scope.user = auth.currentUser();
-}]);
-
-app.controller('Comics', [
-'$scope',
-'$stateParams',
-'comic',
-function($scope, $stateParams, comic){
-	$scope.comics = comic;
 }]);
 
 app.controller('Nav', [
@@ -105,12 +117,30 @@ function($scope, comics){
   };
 }
 ]);
+
+app.factory('strips', ['$http', function($http){
+  var o = {
+  strips: []
+  };
+  o.getAll = function(id) {
+		return $http.get('/comics/'+id+'/strips').success(function(data){
+      angular.copy(data, o.strips);
+    });
+  };
+	return o;
+}]);
+
 app.factory('comics', ['$http', 'auth', function($http, auth){
   var o = {
   comics: []
   };
     o.getAll = function() {
 		return $http.get('/comics').success(function(data){
+      angular.copy(data, o.comics);
+    });
+  };
+  o.getComic = function(id){
+	return $http.get('/comics/' + id).success(function(data){
       angular.copy(data, o.comics);
     });
   };

@@ -19,7 +19,7 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
 	return gulp.src('private/scripts/**/*.js')
-	.pipe(uglify())
+	//.pipe(uglify()) // TODO: uncomment
 	.pipe(concat("ang.min.js"))
 	.pipe(gulp.dest('public/scripts'));
 });
