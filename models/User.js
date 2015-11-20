@@ -7,7 +7,7 @@ var UserSchema = new mongoose.Schema({
     username: {type: String, lowercase: true, unique: true},
     hash: String,
     salt: String,
-    comics: [{ comic: {type: mongoose.Schema.Types.ObjectId, ref: 'Comic'}, blitz: {type: Number, default: 0}}],
+    comics: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comic'}],
     settings: mongoose.Schema.Types.Mixed,
     strips: [{ strip: {type: mongoose.Schema.Types.ObjectId, ref: 'Strip'}, liketype: [{type: String, enum: states, default: 'like'}]}]
 });
