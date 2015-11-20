@@ -1,0 +1,54 @@
+[
+    {
+        "_id": "200000000000000000000001",
+        "name": "geeky",
+        "description": "requiring specific pop-culture and/or science knowledge",
+        "comics": [
+            {
+                "_id": "100000000000000000000001"
+            }, {
+                "_id": "100000000000000000000004"
+            }
+        ]
+    },
+    {
+        "_id": "200000000000000000000002",
+        "name": "adult",
+        "description": "containing graphic sexual and/or violent material",
+        "comics": [
+            {
+                "_id": "100000000000000000000003"
+            }
+        ]
+    },
+    {
+        "_id": "200000000000000000000003",
+        "name": "slice-of-life",
+        "description": "continuous and/or overarching story lines",
+        "comics": [
+            {
+                "_id": "100000000000000000000002"
+            }, {
+                "_id": "100000000000000000000005"
+            }, {
+                "_id": "100000000000000000000006"
+            }
+        ]
+    },
+    {
+        "_id": "200000000000000000000004",
+        "name": "gag",
+        "description": "humorous content",
+        "comics": [
+            {
+                "_id": "100000000000000000000001"
+            }, {
+                "_id": "100000000000000000000003"
+            }, {
+                "_id": "100000000000000000000004"
+            }, {
+                "_id": "100000000000000000000007"
+            }
+        ]
+    }
+]

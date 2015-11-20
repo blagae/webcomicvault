@@ -1,11 +1,15 @@
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
+var states = 'like typical best'.split(' ');
+
 var UserSchema = new mongoose.Schema({
     username: {type: String, lowercase: true, unique: true},
     hash: String,
     salt: String,
-    comics: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comic'}]
+    comics: [{ comic: {type: mongoose.Schema.Types.ObjectId, ref: 'Comic'}, blitz: {type: Number, default: 0}}],
+    settings: mongoose.Schema.Types.Mixed,
+    strips: [{ strip: {type: mongoose.Schema.Types.ObjectId, ref: 'Strip'}, liketype: [{type: String, enum: states, default: 'like'}]}]
 });
 
 var crypto = require('crypto');
@@ -29,7 +33,7 @@ UserSchema.methods.generateJWT = function () {
     return jwt.sign({
         _id: this._id,
         username: this.username,
-        exp: parseInt(exp.getTime() / 1000),
+        exp: parseInt(exp.getTime() / 1000)
     }, 'SECRET'); // TODO: set env variable
 };
 

@@ -10,6 +10,7 @@ var passport = require('passport');
 require('./models/Comic');
 require('./models/User');
 require('./models/Strip');
+require('./models/Category');
 require('./config/passport');
 var path = require('path');
 var msf = require('mongoose-simple-fixtures');
