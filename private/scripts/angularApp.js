@@ -22,7 +22,7 @@ function($stateProvider, $urlRouterProvider) {
 				return comics.comics;
 			}
 		}]
-	  },
+	  }
     })
 	.state('login', {
 	  url: '/login',
@@ -102,7 +102,7 @@ function($scope, auth){
 
 app.controller('Main', ['$scope', 'comics',
 function($scope, comics){
-  $scope.welcome = 'Welcome to the Web Comic Vault, your daily fix for online comics.'
+  $scope.welcome = 'Welcome to the Web Comic Vault, your daily fix for online comics.';
   $scope.comicIntro = 'Your currently saved comics are:';
   $scope.comics = comics.comics;
 	
@@ -110,7 +110,7 @@ function($scope, comics){
 	if(!$scope.title || $scope.title === '') { return; }
 	  comics.create({
 		title: $scope.title,
-		url: $scope.url,
+		url: $scope.url
 	  });
     $scope.title = '';
     $scope.url = '';
@@ -168,7 +168,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
 	auth.getToken = function (){
 	  return $window.localStorage['webcomicvault-token'];
-	}
+	};
 	
 	auth.isLoggedIn = function(){
 	  var token = auth.getToken();
@@ -231,7 +231,7 @@ function($scope, $state, auth){
       $state.go('home');
     });
   };
-}])
+}]);
 
 // TODO: make safe
 function cleanUrl(url) {
