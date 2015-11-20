@@ -5,6 +5,7 @@ var sass = require('gulp-sass');
 var minify = require('gulp-minify-css');
 var del = require('del');
 var lint = require('gulp-jshint');
+var nodemon = require('gulp-nodemon');
 
 gulp.task('lint', function() {
     return gulp.src('private/scripts/**/*.js')
@@ -37,13 +38,25 @@ gulp.task('images', function() {
 	.pipe(gulp.dest('public/images'));
 });
 
-gulp.task('default', gulp.series(//'lint', // fail early
+gulp.task('init', gulp.series('lint', // fail early
         'clean',
-        gulp.parallel('styles', 'scripts', 'images',
-        function(done) {
+        gulp.parallel('styles', 'scripts', 'images')));
+
+
+
+gulp.task('go', gulp.series('init', gulp.parallel(function(done) {
             gulp.watch('private/images/*.*', gulp.parallel('images'));
             gulp.watch('private/styles/*.css', gulp.parallel('styles'));
             gulp.watch('private/scripts/**/*.js', gulp.series('lint', 'scripts'));
             
             done();
         })));
+
+gulp.task('default', gulp.series('go', function () {
+    nodemon({ script: './bin/www'
+          //, tasks: ['go'] 
+      })
+    .on('restart', function () {
+      console.log('restarted!');
+    });
+}));
