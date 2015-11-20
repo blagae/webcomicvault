@@ -7,10 +7,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var passport = require('passport');
-require('./models/User');
-require('./models/Comic');
-require('./models/Strip');
-require('./models/Category');
+require('./models/Models');
 require('./config/passport');
 var path = require('path');
 var msf = require('mongoose-simple-fixtures');
