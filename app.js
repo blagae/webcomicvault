@@ -24,6 +24,8 @@ mongoose.connect('mongodb://localhost/comics');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var comics = require('./routes/comics');
+var categories = require('./routes/categories');
+var strips = require('./routes/strips');
 
 var app = express();
 
@@ -42,6 +44,8 @@ app.use(passport.initialize());
 app.use('/', routes);
 app.use('/user', user);
 app.use('/comics', comics);
+app.use('/categories', categories);
+app.use('/strips', strips);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -7,6 +7,8 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 var mongoose = require('mongoose');
 var Comic = mongoose.model('Comic');
 var Strip = mongoose.model('Strip');
+var User = mongoose.model('User');
+var Category = mongoose.model('Category');
 
 router.param('comic', function (req, res, next, id) {
     var query = Comic.findOne({'title': id});
@@ -25,12 +27,7 @@ router.param('comic', function (req, res, next, id) {
 });
 
 router.get('/:comic', function (req, res, next) {
-    Comic.findOne({'title': req.comic.title}, function (err, comic) {
-        if (err) {
-            return next(err);
-        }
-        res.json(comic);
-    });
+    res.json(req.comic);
 });
 
 router.get('/:comic/strips', function (req, res, next) {
@@ -39,6 +36,25 @@ router.get('/:comic/strips', function (req, res, next) {
             return next(err);
         }
         res.json(strips);
+    });
+});
+
+router.get('/:comic/categories', function (req, res, next) {
+    Category.find({'_id': {$in: req.comic.categories}}, function (err, categories) {
+        if (err) {
+            return next(err);
+        }
+        res.json(categories);
+    });
+});
+
+
+router.get('/:comic/users', function (req, res, next) {
+    User.find({'_id': {$in: req.comic.users}}, function (err, users) {
+        if (err) {
+            return next(err);
+        }
+        res.json(users);
     });
 });
 

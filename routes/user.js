@@ -30,7 +30,11 @@ router.param('user', function (req, res, next, id) {
     });
 });
 
-router.get('/:user/comics', function (req, res, next) {
+router.get('/:user', auth, function (req, res, next) {
+    res.json(req.user);
+});
+
+router.get('/:user/comics', auth, function (req, res, next) {
     Comic.find({'_id': {$in: req.user.comics}}, function (err, comics) {
         if (err) {
             return next(err);
