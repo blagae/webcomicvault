@@ -1,54 +1,22 @@
 [
     {
-        "_id": "200000000000000000000001",
+        "_id": "20000001",
         "name": "geeky",
-        "description": "requiring specific pop-culture and/or science knowledge",
-        "comics": [
-            {
-                "_id": "100000000000000000000001"
-            }, {
-                "_id": "100000000000000000000004"
-            }
-        ]
+        "description": "requiring specific pop-culture and/or science knowledge"
     },
     {
-        "_id": "200000000000000000000002",
+        "_id": "20000002",
         "name": "adult",
-        "description": "containing graphic sexual and/or violent material",
-        "comics": [
-            {
-                "_id": "100000000000000000000003"
-            }
-        ]
+        "description": "containing graphic sexual and/or violent material"
     },
     {
-        "_id": "200000000000000000000003",
+        "_id": "20000003",
         "name": "slice-of-life",
-        "description": "continuous and/or overarching story lines",
-        "comics": [
-            {
-                "_id": "100000000000000000000002"
-            }, {
-                "_id": "100000000000000000000005"
-            }, {
-                "_id": "100000000000000000000006"
-            }
-        ]
+        "description": "continuous and/or overarching story lines"
     },
     {
-        "_id": "200000000000000000000004",
+        "_id": "20000004",
         "name": "gag",
-        "description": "humorous content",
-        "comics": [
-            {
-                "_id": "100000000000000000000001"
-            }, {
-                "_id": "100000000000000000000003"
-            }, {
-                "_id": "100000000000000000000004"
-            }, {
-                "_id": "100000000000000000000007"
-            }
-        ]
+        "description": "humorous content contained in one strip"
     }
 ]
