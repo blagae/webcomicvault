@@ -16,5 +16,66 @@
         "comic": {
             "_id": "10000001"
         }
+    },
+    {
+        "title": "Handjob Susan, Private Eye",
+        "url": "http://www.asofterworld.com/clean/handjob.jpg",
+        "sequence": 114,
+        "alt": "handjob susan, private eye",
+        "comic": {
+            "_id": "10000004"
+        }
+    },
+    {
+        "title": "Fountain of Doubt",
+        "url": "http://media.oglaf.com/comic/Fountain_of_Doubt.jpg",
+        "sequence": 2,
+        "alt": "Without doubt there can be no faith.",
+        "comic": {
+            "_id": "10000003"
+        }
+    },
+    {
+        "title": "211",
+        "url": "http://www.qwantz.com/comics/comic2-239.png",
+        "sequence": 211,
+        "alt": "shakespeare punchlines comics",
+        "comic": {
+            "_id": "10000007"
+        }
+    },
+    {
+        "title": "2541",
+        "url": "http://www.qwantz.com/comics/comic2-2552.png",
+        "sequence": 2541,
+        "alt": "which excretions?  oh, it's cute you think i discriminate.",
+        "comic": {
+            "_id": "10000007"
+        }
+    },
+    {
+        "url": "https://questionablecontent.net/comics/1595.png",
+        "sequence": 1595,
+        "comic": {
+            "_id": "10000002"
+        }
+    },
+    {
+        "title": "Exploits of a mom",
+        "url": "https://imgs.xkcd.com/comics/exploits_of_a_mom.png",
+        "sequence": 327,
+        "alt": "Her daughter is named Help I'm trapped in a driver's license factory.",
+        "comic": {
+            "_id": "10000001"
+        }
+    },
+    {
+        "title": "GWS550",
+        "url": "http://www.girlswithslingshots.com/comics/GWS550.jpg",
+        "sequence": 550,
+        "alt": "GWS550",
+        "comic": {
+            "_id": "10000006"
+        }
     }
 ]

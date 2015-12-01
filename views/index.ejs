@@ -25,28 +25,43 @@
 			</div>
 		</section>
 		<section>
+                    <div>
 			<ui-view></ui-view>
+                    </div>
 		</section>
+		<script type="text/ng-template" id="/categories.html">
+		<ul>
+					<li ng-repeat="cat in categories"><a href="/#/category/{{cat.name}}" title="{{cat.description}}">{{cat.name}}</li>
+				</ul>
+		</script>
+		<script type="text/ng-template" id="/category.html">
+                {{category.name}}
+		<ul>
+					<li ng-repeat="comic in comics"><a href="/#/comics/{{comic.title}}" title="{{comic.description}}">{{comic.title}}</li>
+				</ul>
+		</script>
 		<script type="text/ng-template" id="/comic.html">
 				{{comic.title}}
 		<ul>
-					<li ng-repeat="strip in strips">{{strip.alt}}</li>
+					<li ng-repeat="strip in strips"><img src="{{strip.url}}"/>{{strip.alt}}</li>
 				</ul>
 		</script>
 		<script type="text/ng-template" id="/user.html">
 		{{user}}
 		</script>
 		<script type="text/ng-template" id="/comics.html">
+                        <div>
 				<ul>
-					<li ng-repeat="com in comics"><a href="{{com.url}}">{{com.title}}</a></li>
+					<li ng-repeat="com in comics"><dl><dt><a href="/#comics/{{com.title}}">{{com.title}}</a></dt><dd><a href="{{com.url}}">Go to site</a></dd></dl></li>
 				</ul>
+                        </div>
 		</script>
 		<script type="text/ng-template" id="/home.html">
 			<div>
 				<p>{{welcome}}</p>
 				<p>{{comicIntro}}</p>
 				<ul>
-					<li ng-repeat="comic in comics"><a href="{{comic.url}}">{{comic.title}}</a></li>
+					<li ng-repeat="com in comics"><dl><dt><a href="/#comics/{{com.title}}">{{com.title}}</a></dt><dd><a href="{{com.url}}">Go to site</a></dd></dl></li>
 				</ul>
 			</div>
 			<form ng-submit="addComic()">
@@ -103,17 +118,5 @@
 			<button type="submit" class="btn btn-primary">Log In</button>
 		  </form>
 		  </script>
-		<!--script type="text/ng-template" id="/comics.html">
-			<div class="page-header">
-			<h3>
-				<a ng-show="comic.url" href="{{comic.url}}">
-				{{comic.title}}
-				</a>
-				<span ng-hide="comic.url">
-				{{comic.title}}
-				</span>
-			</h3>
-			</div>
-		</script-->
 	</body>
 </html>

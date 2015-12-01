@@ -66,10 +66,44 @@ app.config([
                 templateUrl: '/comic.html',
                 controller: 'Comic'
             })
+            .state('categories', {
+                url: '/categories',
+                templateUrl: '/categories.html',
+                controller: 'Categories'
+            })
+            .state('category', {
+                url: '/category/{catid}',
+                templateUrl: '/category.html',
+                controller: 'Category'
+            })
             ;
 
         $urlRouterProvider.otherwise('home');
     }]);
+
+
+app.controller('Category', [
+    '$scope',
+    '$stateParams',
+    'categories',
+    function ($scope, $stateParams, categories) {
+        categories.get($stateParams.catid);
+        categories.getComicsFor($stateParams.catid);
+        $scope.category = categories.categories;
+        
+        $scope.comics = categories.comics;
+    }
+]);
+
+app.controller('Categories', [
+    '$scope',
+    '$stateParams',
+    'categories',
+    function ($scope, $stateParams, categories) {
+        categories.getAll();
+        $scope.categories = categories.categories;
+    }
+]);
 
 app.controller('Comic', [
     '$scope',
@@ -127,6 +161,29 @@ app.factory('strips', ['$http', function ($http) {
         o.getAll = function (id) {
             return $http.get('/comics/' + id + '/strips').success(function (data) {
                 angular.copy(data, o.strips);
+            });
+        };
+        return o;
+    }]);
+
+app.factory('categories', ['$http', function ($http) {
+        var o = {
+            categories: [],
+            comics: []
+        };
+        o.getAll = function () {
+            return $http.get('/categories').success(function (data) {
+                angular.copy(data, o.categories);
+            });
+        };
+        o.get = function(catid) {
+            return $http.get('/categories/'+catid).success(function (data) {
+                angular.copy(data, o.categories);
+            });
+        };
+        o.getComicsFor = function(catid) {
+            return $http.get('/categories/'+catid+"/comics").success(function (data) {
+                angular.copy(data, o.comics);
             });
         };
         return o;
