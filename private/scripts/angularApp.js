@@ -204,7 +204,9 @@ app.factory('comics', ['$http', 'auth', function ($http, auth) {
             });
         };
         o.getForUser = function (user) {
-            return $http.get('/user/' + user + '/comics').success(function (data) {
+            return $http.get('/user/' + user + '/comics', {
+                headers: {Authorization: 'Bearer ' + auth.getToken()} // TODO: remember this
+            }).success(function (data) {
                 angular.copy(data, o.comics);
             });
         };
