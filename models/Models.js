@@ -2,11 +2,19 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var crypto = require('crypto');
 var _ = require("underscore");
+var fs = require("fs");
+var Grid = require("gridfs-stream");
+var request = require("request");
 
 var autoIncrement = require('mongoose-auto-increment');
-var connection = mongoose.createConnection('mongodb://localhost/comics');
+var scanner = require('./Portscan');
+
+var connection = mongoose.createConnection('mongodb://' + scanner.scan('172.17.0.0/24', '27017') + '/comics');
 
 autoIncrement.initialize(connection);
+
+Grid.mongo = mongoose.mongo;
+var gfs = Grid(connection.db);
 
 var CategorySchema = new mongoose.Schema({
     name: {type: String, unique: true},
@@ -189,6 +197,18 @@ StripSchema.post('save', function () {
             if (!err && comic && comic.strips && !_.contains(comic.strips, inst)) {
                 comic.strips.push({'_id': inst});
                 comic.save();
+            }
+        });
+    }
+    
+    if (this.url) {
+        request(this.url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                
+                var writestream = gfs.createWriteStream({
+                    filename: this.sequence
+                });
+                fs.createReadStream(body).pipe(writestream);
             }
         });
     }
