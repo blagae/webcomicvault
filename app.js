@@ -17,8 +17,9 @@ msf(dir, function (err, results) {
     if (err)
         console.log("loading data failed" + err);
 });
+var address = require('./models/Address');
 
-mongoose.connect('mongodb://localhost/comics');
+mongoose.connect(address.mongo());
 
 
 var routes = require('./routes/index');

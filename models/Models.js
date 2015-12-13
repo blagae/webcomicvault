@@ -4,7 +4,8 @@ var crypto = require('crypto');
 var _ = require("underscore");
 
 var autoIncrement = require('mongoose-auto-increment');
-var connection = mongoose.createConnection('mongodb://localhost/comics');
+var address = require('./Address');
+var connection = mongoose.createConnection(address.mongo());
 
 autoIncrement.initialize(connection);
 
