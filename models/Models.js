@@ -7,9 +7,8 @@ var Grid = require("gridfs-stream");
 var request = require("request");
 
 var autoIncrement = require('mongoose-auto-increment');
-var scanner = require('./Portscan');
-
-var connection = mongoose.createConnection('mongodb://' + scanner.scan('172.17.0.0/24', '27017') + '/comics');
+var address = require('./Address');
+var connection = mongoose.createConnection(address.mongo());
 
 autoIncrement.initialize(connection);
 
