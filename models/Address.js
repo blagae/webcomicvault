@@ -8,7 +8,7 @@ var mongo_ip = function() {
 
 var mongo = function() {
     return 'mongodb://' + mongo_ip() + '/comics';
-}
+};
 
 module.exports = {
     mongo: mongo
