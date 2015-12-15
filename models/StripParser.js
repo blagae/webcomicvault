@@ -16,11 +16,9 @@ var replace = function (str, col) {
 
 var parse = function(com) {
     Comic.findOne({'title': com})
-    .exec(function (err, c) {
-        var comic = c;
+    .exec(function (err, comic) {
         var item = 1;
-        var abort = false;
-        while(!abort) {
+        while(true) {
             var url = comic.url + replace(comic.urlpattern, item++);
             if (item > 10) {
                 console.log("aborting");
