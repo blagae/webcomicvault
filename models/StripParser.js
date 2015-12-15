@@ -15,8 +15,8 @@ var replace = function (str, col) {
 };
 
 var parse = function(com) {
-    Comic.findOne({'title': com}).
-    exec(function (err, c) {
+    Comic.findOne({'title': com})
+    .exec(function (err, c) {
         var comic = c;
         var item = 1;
         var abort = false;
