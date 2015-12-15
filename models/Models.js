@@ -22,6 +22,7 @@ var ComicSchema = new mongoose.Schema({
     description: String,
     url: String,
     urlpattern: String,
+    imgpattern: String,
     current: mongoose.Schema.Types.Mixed,
     users: [{type: Number, ref: 'User'}],
     categories: [{type: Number, ref: 'Category'}],

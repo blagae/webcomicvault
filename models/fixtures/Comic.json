@@ -3,6 +3,8 @@
         "_id": "10000001",
         "title": "XKCD",
         "url": "http://xkcd.com",
+        "urlpattern": "/{0}",
+        "imgpattern": "#comic img",
         "categories": [
             {
                 "_id": "20000001"

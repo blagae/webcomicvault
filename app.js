@@ -79,5 +79,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
+var parser = require('./models/StripParser');
+parser.parse('XKCD');
 
 module.exports = app;
