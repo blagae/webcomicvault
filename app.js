@@ -13,9 +13,13 @@ var path = require('path');
 var msf = require('mongoose-simple-fixtures');
 var dir = path.resolve(__dirname, "./models/fixtures");
 
+var parser = require('./models/StripParser');
+
 msf(dir, function (err, results) {
     if (err)
         console.log("loading data failed" + err);
+    else
+        parser.parse();
 });
 var address = require('./models/Address');
 
@@ -78,8 +82,5 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
-var parser = require('./models/StripParser');
-parser.parse('XKCD');
 
 module.exports = app;

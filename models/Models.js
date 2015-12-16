@@ -122,6 +122,19 @@ CategorySchema.pre('save', function (next) {
     next();
 });
 
+// hook taken from https://stackoverflow.com/questions/16882938/how-to-check-if-that-data-already-exist-in-the-database-during-update-mongoose
+StripSchema.pre('save', function (next) {
+    var self = this;
+    Strip.find({comic : self.comic, sequence: self.sequence}, function (err, docs) {
+        if (!docs.length){
+            next();
+        }else{                
+            console.log('strip exists: ', self.comic.title + '/' + self.sequence);
+            next(new Error("Strip already exists!"));
+        }
+    });
+}) ;
+
 ComicSchema.post('save', function () {
     var id = this._id;
     this.users.forEach(function (userid) {

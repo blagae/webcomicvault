@@ -14,29 +14,41 @@ var replace = function (str, col) {
     });
 };
 
-var parse = function(com) {
-    Comic.findOne({'title': com})
-    .exec(function (err, comic) {
-        var item = 1;
-        while(true) {
-            var url = comic.url + replace(comic.urlpattern, item++);
-            if (item > 10) {
-                console.log("aborting");
-                return;
-            }
-            request(url, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var $ = cheerio.load(body);
-                    var img = $(comic.imgpattern);
-                    img = img[0].attribs;
-                    var s = new Strip();
-                    s.url = img.src;
-                    s.alt = img.title;
-                    s.comic = comic;
-                    s.save(); 
+var parse = function() {
+    Comic.find().exec(function(err, comics) {
+        comics.forEach(function(comic) {
+            if (comic.title === "Oglaf")
+                return; // can't handle Oglaf just yet
+            var item = 0;
+            while(true) {
+                var url = comic.url + replace(comic.urlpattern, ++item);
+                if (item > 9) {
+                    console.log("finished downloading "+ item + " items from " + comic.title);
+                    return;
                 }
-            });
-        }
+                request({
+                    method: 'GET',
+                    uri: url,
+                    number: item // add property to communicate sequence number
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var $ = cheerio.load(body);
+                        var img = $(comic.imgpattern);
+                        if (!img[0]) {
+                            console.log("no image found for " + this.uri.href);
+                            return;
+                        }
+                        img = img[0].attribs;
+                        var s = new Strip();
+                        s.url = img.src;
+                        s.alt = img.title;
+                        s.comic = comic;
+                        s.sequence = this.number;
+                        s.save(); 
+                    }
+                });
+            }
+        });
     });
 };
 
