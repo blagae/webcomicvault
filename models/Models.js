@@ -49,7 +49,7 @@ var StripSchema = new mongoose.Schema({
     title: String,
     url: String,
     sequence: Number,
-    alt: String,
+    title: String,
     comic: {type: Number, ref: 'Comic'},
     likes: {type: Number, default: 0}
 });

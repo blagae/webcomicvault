@@ -41,7 +41,7 @@ var parse = function() {
                         img = img[0].attribs;
                         var s = new Strip();
                         s.url = img.src;
-                        s.alt = img.title;
+                        s.title = img.title;
                         s.comic = comic;
                         s.sequence = this.number;
                         s.save(); 
