@@ -40,7 +40,12 @@ var parse = function() {
                         }
                         img = img[0].attribs;
                         var s = new Strip();
-                        s.url = img.src;
+                        if (img.src.indexOf("http") > -1 || img.src.indexOf("//") === 0)
+                            s.url = img.src;
+                        else if (img.src.charAt(0) === '.')
+                            s.url = comic.url + img.src.substring(1);
+                        else
+                            s.url = comic.url + img.src;
                         s.title = img.title;
                         s.comic = comic;
                         s.sequence = this.number;
