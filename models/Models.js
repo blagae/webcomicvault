@@ -46,8 +46,7 @@ var UserSchema = new mongoose.Schema({
 
 
 var StripSchema = new mongoose.Schema({
-    title: String,
-    url: String,
+    url: [String],
     sequence: Number,
     title: String,
     comic: {type: Number, ref: 'Comic'},

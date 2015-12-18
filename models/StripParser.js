@@ -33,22 +33,29 @@ var parse = function() {
                 }, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         var $ = cheerio.load(body);
-                        var img = $(comic.imgpattern);
-                        if (!img[0]) {
+                        var imgs = $(comic.imgpattern);
+                        if (!imgs || !imgs[0]) {
                             console.log("no image found for " + this.uri.href);
                             return;
                         }
-                        img = img[0].attribs;
+                        
+                        var atts = imgs[0].attribs;
                         var s = new Strip();
-                        if (img.src.indexOf("http") > -1 || img.src.indexOf("//") === 0)
-                            s.url = img.src;
-                        else if (img.src.charAt(0) === '.')
-                            s.url = comic.url + img.src.substring(1);
-                        else
-                            s.url = comic.url + img.src;
-                        s.title = img.title;
+                        s.titletext = atts.title;
                         s.comic = comic;
                         s.sequence = this.number;
+                        s.url = [];
+                        imgs.each(function(index, img) {
+                            var url;
+                            var attribs = img.attribs;
+                            if (attribs.src.indexOf("http") > -1 || attribs.src.indexOf("//") === 0)
+                                url = attribs.src;
+                            else if (attribs.src.charAt(0) === '.')
+                                url = comic.url + attribs.src.substring(1);
+                            else
+                                url = comic.url + attribs.src;
+                            s.url.push(url);
+                        });
                         s.save(); 
                     }
                 });
