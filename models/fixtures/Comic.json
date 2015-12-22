@@ -98,7 +98,7 @@
         "title": "Girls With Slingshots",
         "url": "http://girlswithslingshots.com",
         "urlpattern": "/comic/gws{0}",
-        "imgpattern": "#comic",
+        "imgpattern": "#cc-comic",
         "categories": [
             {
                 "_id": "20000003"
