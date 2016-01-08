@@ -28,6 +28,7 @@ var ComicSchema = new mongoose.Schema({
     description: String,
     url: String,
     urlpattern: String,
+    imgpattern: String,
     current: mongoose.Schema.Types.Mixed,
     users: [{type: Number, ref: 'User'}],
     categories: [{type: Number, ref: 'Category'}],
@@ -51,10 +52,9 @@ var UserSchema = new mongoose.Schema({
 
 
 var StripSchema = new mongoose.Schema({
-    title: String,
-    url: String,
+    url: [String],
     sequence: Number,
-    alt: String,
+    title: String,
     comic: {type: Number, ref: 'Comic'},
     likes: {type: Number, default: 0}
 });
@@ -126,6 +126,19 @@ CategorySchema.pre('save', function (next) {
     this.comics = _.unique(this.comics);
     next();
 });
+
+// hook taken from https://stackoverflow.com/questions/16882938/how-to-check-if-that-data-already-exist-in-the-database-during-update-mongoose
+StripSchema.pre('save', function (next) {
+    var self = this;
+    Strip.find({comic : self.comic, sequence: self.sequence}, function (err, docs) {
+        if (!docs.length){
+            next();
+        }else{                
+            console.log('strip exists: ', self.comic.title + '/' + self.sequence);
+            next(new Error("Strip already exists!"));
+        }
+    });
+}) ;
 
 ComicSchema.post('save', function () {
     var id = this._id;
