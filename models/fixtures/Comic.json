@@ -2,6 +2,10 @@
     {
         "_id": "10000001",
         "title": "XKCD",
+        "authors": ["Randall Munroe"],
+        "tagline": "A webcomic of romance, sarcasm, math, and language",
+        "description": "<p>A comic featuring mostly unrelated strips, usually employing a form of geeky humor.</p><p>XKCD has had tremendous real-world influence for a webcomic, spawning hundreds of user-created enactments of the comic's themes, jokes, and songs. It is even the direct origin of a module in the Python programming language.</p>",
+        "since": "2005",
         "url": "http://xkcd.com",
         "urlpattern": "/{0}",
         "imgpattern": "#comic img",
@@ -25,6 +29,9 @@
     {
         "_id": "10000002",
         "title": "Questionable Content",
+        "authors": ["Jeph Jacques"],
+        "description": "<p>A mostly continuous story about young people in a small town in Massachusetts, USA. The story is set in a near-future society where robots are commonplace, but most of the story still revolves around humans and their interactions.</p><p>The comic is sometimes interspersed with random filler art</p>",
+        "since": "2003",
         "url": "http://questionablecontent.net",
         "urlpattern": "/view.php?comic={0}",
         "imgpattern": "#strip",
@@ -41,6 +48,9 @@
     {
         "_id": "10000003",
         "title": "Oglaf",
+        "authors": ["Trudy Cooper", "Doug Bayne"],
+        "description": "<p>A gag comic with most of its humor centered around adult-oriented themes, often accompanied by graphical nudity. Comics are one pane by default, but may have up to 8.</p>",
+        "since": "2009",
         "url": "http://oglaf.com",
         "categories": [
             {
@@ -58,6 +68,9 @@
     {
         "_id": "10000004",
         "title": "A Softer World",
+        "authors": ["Emily Horne", "Joey Comeau"],
+        "description": "<p>Photographs are overlaid with text to produce comics usually consisting of 3 visually related panels, with a harsh textual punchline in the last. Prominently features very dark humor, often hinting at suicide, homicide, and desperation.</p>",
+        "since": "2003",
         "url": "http://asofterworld.com",
         "urlpattern": "/index.php?id={0}",
         "imgpattern": "#comicimg img",
@@ -79,6 +92,9 @@
     {
         "_id": "10000005",
         "title": "Alice Grove",
+        "authors": ["Jeph Jacques"],
+        "description": "<p>A mostly continuous story about a post-apocalyptic world reset to medieval technology. The titular character Alice, a superhuman survivor of the apocalypse a long time ago, must solve the mystery of why two aliens have landed in her village.</p>",
+        "since": "2014",
         "url": "http://alicegrove.com",
         "urlpattern": "/page/{0}",
         "imgpattern": ".photo-item a img",
@@ -96,6 +112,9 @@
     {
         "_id": "10000006",
         "title": "Girls With Slingshots",
+        "authors": ["Danielle Corsetto"],
+        "description": "<p>A continuous story about a down-and-out twentysomething who struggles to get her life on the rails. Hazel might very well be an alcoholic.</p>",
+        "since": "2004",
         "url": "http://girlswithslingshots.com",
         "urlpattern": "/comic/gws{0}",
         "imgpattern": "#cc-comic",
@@ -115,6 +134,9 @@
     {
         "_id": "10000007",
         "title": "Dinosaur Comics",
+        "authors": ["Ryan North"],
+        "description": "<p>The same basic graphic art is overlaid with absurd conversations between a few dinosaurs.</p><p> The main character is a childlike Tyrannosaurus Rex who wonders about perceived absurdities and drives them to the extreme.</p>",
+        "since": "2003",
         "url": "http://qwantz.com",
         "urlpattern": "/index.php?comic={0}",
         "imgpattern": ".comic",

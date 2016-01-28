@@ -25,7 +25,10 @@ mongoose.model('Category', CategorySchema);
 
 var ComicSchema = new mongoose.Schema({
     title: {type: String, unique: true},
+    author: [String],
     description: String,
+    tagline: String,
+    since: Number,
     url: String,
     urlpattern: String,
     imgpattern: String,

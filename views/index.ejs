@@ -14,6 +14,7 @@
                 <nav id="nav_left">
                     <a href="/#/user/comics" ng-show="isLoggedIn()">My webcomics</a>
                     <a href="/#/comics">All webcomics</a>
+                    <a href="/#/categories">Categories</a>
                     <a href="/#/user" ng-show="isLoggedIn()">My account</a>
                     <a href="/#/about">About this site</a>
                 </nav>
@@ -35,8 +36,6 @@
                 </ul>
             </div>
             <div id="payload">
-                Payload
-                <br/>
                 <ui-view></ui-view>
             </div>
             <div id="feed" ng-controller="Strips">
@@ -44,7 +43,20 @@
             </div>
 
         </div>
-        <script type="text/ng-template" id="/home.html">Content</script>
+        <script type="text/ng-template" id="/about.html">
+            <section>
+                <h1>origin</h1>
+                <p>
+                    This website was created as a student project for a Web Apps course at Hogeschool Gent (Belgium).
+                </p>
+                <span ng-show="isLoggedIn()">To the left, you can find your favorite comics</span>
+            </section>
+        </script>
+        <script type="text/ng-template" id="/home.html">
+            <section>
+                Welcome to the Web Comic Vault, your daily fix for online comics.
+            </section>
+        </script>
         <script type="text/ng-template" id="/login.html">
             <div ng-show="error" class="alert alert-danger row">
             <span>{{ error.message }}</span>
@@ -81,10 +93,8 @@
             </ul>
         </script>
         <script type="text/ng-template" id="/comic.html">
-            {{comic.title}}
-            <ul>
-            <li ng-repeat="strip in strips"><img ng-repeat="url in strip.url" src="{{url}}"/>{{strip.title}}</li>
-            </ul>
+            <h1>{{comic.title}}</h1>
+            <p ng-repeat="strip in strips"><img ng-repeat="url in strip.url" src="{{url}}"/>{{strip.title}}</p>
         </script>
         <script type="text/ng-template" id="/user.html">
             {{user}}
@@ -93,8 +103,8 @@
             <div>
             <ul>
             <li ng-repeat="com in comics">
-                <a href="/#/comics/{{com.title}}">{{com.title}}</a>
-                <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
+            <a href="/#/comics/{{com.title}}">{{com.title}}</a>
+            <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
             </li>
             </ul>
             </div>
@@ -103,8 +113,8 @@
             <div>
             <ul>
             <li ng-repeat="com in comics">
-                <a href="/#/comics/{{com.title}}">{{com.title}}</a>
-                <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
+            <a href="/#/comics/{{com.title}}">{{com.title}}</a>
+            <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
             </li>
             </ul>
             </div>
@@ -113,11 +123,11 @@
             <div ng-show="error">
             <span>{{ error.message }}</span>
             </div>
-            
+
             <form ng-submit="register()"
             style="margin-top:30px;">
             <h3>Register</h3>
-            
+
             <div class="form-group">
             <input type="text"
             class="form-control"

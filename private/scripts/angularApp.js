@@ -54,6 +54,12 @@ app.config([
                 controller: 'Favs'
 
             })
+            .state('about', {
+                url: '/about',
+                templateUrl: '/about.html',
+                controller: 'Nav'
+
+            })
             .state('comic', {
                 url: '/comics/{comicid}',
                 templateUrl: '/comic.html',
