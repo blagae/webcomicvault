@@ -9,66 +9,26 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     </head>
     <body ng-app="webcomicvault">
-        <div id="navstrip">
-            <div ng-controller="Nav">
-                <nav id="nav_left">
+        <section>
+            <nav ng-controller="Nav">
+                <span ng-show="isLoggedIn()">Welcome {{currentUser}}</span>
                     <a href="/#/user/comics" ng-show="isLoggedIn()">My webcomics</a>
                     <a href="/#/comics">All webcomics</a>
                     <a href="/#/user" ng-show="isLoggedIn()">My account</a>
-                    <a href="/#/about">About this site</a>
-                </nav>
-                <nav id="nav_right">
-                    <span ng-show="isLoggedIn()">Welcome {{currentUser}}</span>
                     <a href="/" ng-show="isLoggedIn()" ng-click="logOut()">Log Out</a>
                     <a href="/#/login" ng-hide="isLoggedIn()">Log In</a>
                     <a href="/#/register" ng-hide="isLoggedIn()">Register</a>
+                <a href="/#/about">About this site</a>
                 </nav>
+            <div>
+                <h1>Web Comic Vault</h1>
             </div>
-        </div>
-        <div id="contents">
-            <div id="favorites" ng-controller="Favs">
-                <ul>
-                    <li ng-repeat="com in favs">
-                        <a href="/#/comics/{{com.title}}">{{com.title}}</a>
-                        <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="payload">
-                Payload
-                <br/>
+        </section>
+        <section>
+            <div>
                 <ui-view></ui-view>
             </div>
-            <div id="feed" ng-controller="Strips">
-                New comics feed
-            </div>
-
-        </div>
-        <script type="text/ng-template" id="/home.html">Content</script>
-        <script type="text/ng-template" id="/login.html">
-            <div ng-show="error" class="alert alert-danger row">
-            <span>{{ error.message }}</span>
-            </div>
-
-            <form ng-submit="logIn()"
-            style="margin-top:30px;">
-            <h3>Log In</h3>
-
-            <div class="form-group">
-            <input type="text"
-            class="form-control"
-            placeholder="Username"
-            ng-model="user.username"></input>
-            </div>
-            <div class="form-group">
-            <input type="password"
-            class="form-control"
-            placeholder="Password"
-            ng-model="user.password"></input>
-            </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
-            </form>
-        </script>
+        </section>
         <script type="text/ng-template" id="/categories.html">
             <ul>
             <li ng-repeat="cat in categories"><a href="/#/category/{{cat.name}}" title="{{cat.description}}">{{cat.name}}</li>
@@ -89,25 +49,33 @@
         <script type="text/ng-template" id="/user.html">
             {{user}}
         </script>
-        <script type="text/ng-template" id="/comics.html">
-            <div>
-            <ul>
-            <li ng-repeat="com in comics">
-                <a href="/#/comics/{{com.title}}">{{com.title}}</a>
-                <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
-            </li>
-            </ul>
-            </div>
-        </script>
         <script type="text/ng-template" id="/user/comics.html">
             <div>
             <ul>
-            <li ng-repeat="com in comics">
-                <a href="/#/comics/{{com.title}}">{{com.title}}</a>
-                <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
-            </li>
+            <li ng-repeat="com in favs"><dl><dt><a href="/#comics/{{com.title}}">{{com.title}}</a></dt><dd><a href="{{com.url}}">Go to site</a></dd></dl></li>
             </ul>
             </div>
+        </script>
+        <script type="text/ng-template" id="/comics.html">
+            <div>
+            <ul>
+            <li ng-repeat="com in comics"><dl><dt><a href="/#comics/{{com.title}}">{{com.title}}</a></dt><dd><a href="{{com.url}}">Go to site</a></dd></dl></li>
+            </ul>
+            </div>
+        </script>
+        <script type="text/ng-template" id="/home.html">
+            <div>
+            <p>{{welcome}}</p>
+            <p>{{comicIntro}}</p>
+            <ul>
+            <li ng-repeat="com in comics"><dl><dt><a href="/#comics/{{com.title}}">{{com.title}}</a></dt><dd><a href="{{com.url}}">Go to site</a></dd></dl></li>
+            </ul>
+            </div>
+            <form ng-submit="addComic()">
+            <input type="text" ng-model="title"></input>
+            <input type="text" ng-model="url"></input>
+            <button type="submit">Add a comic</button>
+            </form>
         </script>
         <script type="text/ng-template" id="/register.html">
             <div ng-show="error">
@@ -133,6 +101,29 @@
             <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </script>
-
+        <script type="text/ng-template" id="/login.html">
+            <div ng-show="error" class="alert alert-danger row">
+            <span>{{ error.message }}</span>
+            </div>
+            
+            <form ng-submit="logIn()"
+            style="margin-top:30px;">
+            <h3>Log In</h3>
+            
+            <div class="form-group">
+             <input type="text"
+             class="form-control"
+             placeholder="Username"
+             ng-model="user.username"></input>
+            </div>
+            <div class="form-group">
+             <input type="password"
+             class="form-control"
+             placeholder="Password"
+             ng-model="user.password"></input>
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+        </script>
     </body>
 </html>

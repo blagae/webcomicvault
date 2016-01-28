@@ -1,3 +1,4 @@
+/*
 var app = angular.module('webcomicvault', ['ui.router']);
 
 app.config([
@@ -9,7 +10,20 @@ app.config([
             .state('home', {
                 url: '/home',
                 templateUrl: '/home.html',
-                controller: 'Main'
+                controller: 'Main',
+                resolve: {
+                    postPromise: ['comics', 'auth', function (comics, auth) {
+                            if (auth.isLoggedIn()) {
+                                var user = auth.currentUser();
+                                comics.getForUser(user);
+                                return comics.comics;
+                            }
+                            else {
+                                comics.getAll();
+                                return comics.comics;
+                            }
+                        }]
+                }
             })
             .state('login', {
                 url: '/login',
@@ -48,21 +62,10 @@ app.config([
                         }]
                 }
             })
-            .state('usercomics', {
-                url: '/user/comics',
-                templateUrl: '/user/comics.html',
-                controller: 'Favs'
-
-            })
             .state('comic', {
                 url: '/comics/{comicid}',
                 templateUrl: '/comic.html',
                 controller: 'Comic'
-            })
-            .state('comics', {
-                url: '/comics',
-                templateUrl: '/comics.html',
-                controller: 'Comics'
             })
             .state('categories', {
                 url: '/categories',
@@ -73,10 +76,12 @@ app.config([
                 url: '/category/{catid}',
                 templateUrl: '/category.html',
                 controller: 'Category'
-            });
-            
+            })
+            ;
+
         $urlRouterProvider.otherwise('home');
     }]);
+
 
 app.controller('Category', [
     '$scope',
@@ -101,15 +106,6 @@ app.controller('Categories', [
     }
 ]);
 
-app.controller('Comics', [
-    '$scope',
-    '$stateParams',
-    'comics',
-    function ($scope, $stateParams, comics) {
-        comics.getAll();
-        $scope.comics = comics.comics;
-    }]);
-
 app.controller('Comic', [
     '$scope',
     '$stateParams',
@@ -130,139 +126,100 @@ app.controller('User', [
         $scope.user = auth.currentUser();
     }]);
 
-
-app.controller('Nav', ['$scope', 'auth',
+app.controller('Nav', [
+    '$scope',
+    'auth',
     function ($scope, auth) {
         $scope.isLoggedIn = auth.isLoggedIn;
         $scope.currentUser = auth.currentUser();
         $scope.logOut = auth.logOut;
-    }
-]);
+    }]);
 
-
-app.controller('Main', ['$scope',
-    function ($scope) {
+app.controller('Main', ['$scope', 'comics',
+    function ($scope, comics) {
         $scope.welcome = 'Welcome to the Web Comic Vault, your daily fix for online comics.';
         $scope.comicIntro = 'Your currently saved comics are:';
-    }
-]);
-
-app.controller('Favs', ['$scope', 'auth', 'comics',
-    function ($scope, auth, comics) {
-        $scope.isLoggedIn = auth.isLoggedIn;
-        $scope.currentUser = auth.currentUser();
-        $scope.logOut = auth.logOut;
-        if (auth.isLoggedIn()) {
-            comics.getForUser(auth.currentUser());
-        } else {
-            comics.getAll();
-        }
-        $scope.favs = comics.comics;
-    }
-]);
-
-app.controller('Auth', [
-    '$scope',
-    '$state',
-    'auth',
-    function ($scope, $state, auth) {
-        $scope.user = {};
-
-        $scope.register = function () {
-            auth.register($scope.user).error(function (error) {
-                $scope.error = error;
-            }).then(function () {
-                $state.go('home');
+        $scope.comics = comics.comics; // TODO: SCOPE conflicts with ng-controller="User"
+        
+        $scope.addComic = function () {
+            if (!$scope.title || $scope.title === '') {
+                return;
+            }
+            comics.create({
+                title: $scope.title,
+                url: $scope.url
             });
             $scope.title = '';
             $scope.url = '';
         };
-
-        $scope.logIn = function () {
-            auth.logIn($scope.user).error(function (error) {
-                $scope.error = error;
-            }).then(function () {
-                $state.go('home');
-            });
-        };
-    }]);
-
-// TODO: make safe
-function cleanUrl(url) {
-    if (url.startsWith('http')) {
-        return url;
     }
-    else {
-        return 'http://' + url;
-    }
-}
-
+]);
 
 app.factory('strips', ['$http', function ($http) {
-        var payload = {
+        var o = {
             strips: []
         };
-        payload.getAll = function (id) {
+        o.getAll = function (id) {
             return $http.get('/comics/' + id + '/strips').success(function (data) {
-                angular.copy(data, payload.strips);
+                angular.copy(data, o.strips);
             });
         };
-        return payload;
+        return o;
     }]);
 
 app.factory('categories', ['$http', function ($http) {
-        var payload = {
+        var o = {
             categories: [],
             comics: []
         };
-        payload.getAll = function () {
+        o.getAll = function () {
             return $http.get('/categories').success(function (data) {
-                angular.copy(data, payload.categories);
+                angular.copy(data, o.categories);
             });
         };
-        payload.get = function (catid) {
-            return $http.get('/categories/' + catid).success(function (data) {
-                angular.copy(data, payload.categories);
+        o.get = function(catid) {
+            return $http.get('/categories/'+catid).success(function (data) {
+                angular.copy(data, o.categories);
             });
         };
-        payload.getComicsFor = function (catid) {
-            return $http.get('/categories/' + catid + "/comics").success(function (data) {
-                angular.copy(data, payload.comics);
+        o.getComicsFor = function(catid) {
+            return $http.get('/categories/'+catid+"/comics").success(function (data) {
+                angular.copy(data, o.comics);
             });
         };
-        return payload;
+        return o;
     }]);
 
 app.factory('comics', ['$http', 'auth', function ($http, auth) {
-        var payload = {
+        var o = {
             comics: []
         };
-        payload.getAll = function () {
+        o.getAll = function () {
             return $http.get('/comics').success(function (data) {
-                angular.copy(data, payload.comics);
+                angular.copy(data, o.comics);
             });
         };
-        payload.getComic = function (id) {
+        o.getComic = function (id) {
             return $http.get('/comics/' + id).success(function (data) {
-                angular.copy(data, payload.comics);
+                angular.copy(data, o.comics);
             });
         };
-        payload.getForUser = function (user) {
+        o.getForUser = function (user) {
             return $http.get('/user/' + user + '/comics', {
                 headers: {Authorization: 'Bearer ' + auth.getToken()} // TODO: remember this
             }).success(function (data) {
-                angular.copy(data, payload.comics);
+                angular.copy(data, o.comics);
             });
         };
-        payload.create = function (comic) {
+        o.create = function (comic) {
             return $http.post('/comics', comic, {
                 headers: {Authorization: 'Bearer ' + auth.getToken()} // TODO: remember this
             }).success(function (data) {
-                payload.comics.push(data);
+                o.comics.push(data);
             });
         };
 
-        return payload;
+        return o;
     }]);
 
 app.factory('auth', ['$http', '$window', function ($http, $window) {
@@ -308,10 +265,43 @@ app.factory('auth', ['$http', '$window', function ($http, $window) {
         auth.logOut = function () {
             return $http.get('/user/logout').success(function (data) {
                 $window.localStorage.removeItem('webcomicvault-token');
-            }).error(function (data, status){
-                $window.localStorage.removeItem('webcomicvault-token');
             });
         };
 
         return auth;
     }]);
+
+app.controller('Auth', [
+    '$scope',
+    '$state',
+    'auth',
+    function ($scope, $state, auth) {
+        $scope.user = {};
+
+        $scope.register = function () {
+            auth.register($scope.user).error(function (error) {
+                $scope.error = error;
+            }).then(function () {
+                $state.go('home');
+            });
+        };
+
+        $scope.logIn = function () {
+            auth.logIn($scope.user).error(function (error) {
+                $scope.error = error;
+            }).then(function () {
+                $state.go('home');
+            });
+        };
+    }]);
+
+// TODO: make safe
+function cleanUrl(url) {
+    if (url.startsWith('http')) {
+        return url;
+    }
+    else {
+        return 'http://' + url;
+    }
+}
+//*/
