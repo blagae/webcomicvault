@@ -51,7 +51,7 @@ app.config([
             .state('usercomics', {
                 url: '/user/comics',
                 templateUrl: '/user/comics.html',
-                controller: 'Favs'
+                controller: 'UserComics'
 
             })
             .state('about', {
@@ -167,6 +167,20 @@ app.controller('Favs', ['$scope', 'auth', 'comics',
     }
 ]);
 
+app.controller('UserComics', ['$scope', 'auth', 'comics',
+    function ($scope, auth, comics) {
+        $scope.isLoggedIn = auth.isLoggedIn;
+        $scope.currentUser = auth.currentUser();
+        $scope.logOut = auth.logOut;
+        if (auth.isLoggedIn()) {
+            comics.getForUser(auth.currentUser());
+        } else {
+            comics.getAll();
+        }
+        $scope.favs = comics.comics;
+    }
+]);
+
 app.controller('Auth', [
     '$scope',
     '$state',
@@ -246,11 +260,13 @@ app.factory('comics', ['$http', 'auth', function ($http, auth) {
         payload.getAll = function () {
             return $http.get('/comics').success(function (data) {
                 angular.copy(data, payload.comics);
+                payload.comics = [];
             });
         };
         payload.getComic = function (id) {
             return $http.get('/comics/' + id).success(function (data) {
                 angular.copy(data, payload.comics);
+                payload.comics = [];
             });
         };
         payload.getForUser = function (user) {
@@ -258,6 +274,7 @@ app.factory('comics', ['$http', 'auth', function ($http, auth) {
                 headers: {Authorization: 'Bearer ' + auth.getToken()} // TODO: remember this
             }).success(function (data) {
                 angular.copy(data, payload.comics);
+                payload.comics = [];
             });
         };
         payload.create = function (comic) {

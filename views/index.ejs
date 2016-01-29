@@ -28,6 +28,7 @@
         </div>
         <div id="contents">
             <div id="favorites" ng-controller="Favs">
+                <h1>Favorites</h1>
                 <ul>
                     <li ng-repeat="com in favs">
                         <a href="/#/comics/{{com.title}}">{{com.title}}</a>
@@ -112,7 +113,7 @@
         <script type="text/ng-template" id="/user/comics.html">
             <div>
             <ul>
-            <li ng-repeat="com in comics">
+            <li ng-repeat="com in favs">
             <a href="/#/comics/{{com.title}}">{{com.title}}</a>
             <a href="{{com.url}}"><img class="icon" src="images/external_link.png" alt="Go to site"/></a>
             </li>
