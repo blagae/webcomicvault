@@ -52,7 +52,9 @@
                 <p>
                     This website was created as a student project for a Web Apps course at Hogeschool Gent (Belgium).
                 </p>
-                <span ng-show="isLoggedIn()">To the left, you can find your favorite comics</span>
+                <h1>directions</h1>
+                <p ng-show="isLoggedIn()">To the left, you can find your favorite comics</p>
+                <p>To the right is a feed that picks up on new strips from any of the registered comics, and displays previews</p>
             </section>
         </script>
         <script type="text/ng-template" id="/home.html">
@@ -100,7 +102,7 @@
             <p ng-repeat="strip in strips"><img src="{{strip.url[0]}}"/>{{strip.title}}</p>
         </script>
         <script type="text/ng-template" id="/user.html">
-            <h1>User details</h1>
+            <h1>user details</h1>
             Username: {{user}}
         </script>
         <script type="text/ng-template" id="/comics.html">
