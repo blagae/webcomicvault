@@ -12,6 +12,7 @@
         <div id="navstrip">
             <div ng-controller="Nav">
                 <nav id="nav_left">
+                    <a href="/#/home">Home</a>
                     <a href="/#/user/comics" ng-show="isLoggedIn()">My webcomics</a>
                     <a href="/#/comics">All webcomics</a>
                     <a href="/#/categories">Categories</a>
@@ -28,7 +29,8 @@
         </div>
         <div id="contents">
             <div id="favorites" ng-controller="Favs">
-                <h1>Favorites</h1>
+                <h1 ng-show="isLoggedIn()">Favorites</h1>
+                <h1 ng-hide="isLoggedIn()">All comics</h1>
                 <ul>
                     <li ng-repeat="com in favs">
                         <a href="/#/comics/{{com.title}}">{{com.title}}</a>
@@ -95,10 +97,11 @@
         </script>
         <script type="text/ng-template" id="/comic.html">
             <h1>{{comic.title}}</h1>
-            <p ng-repeat="strip in strips"><img ng-repeat="url in strip.url" src="{{url}}"/>{{strip.title}}</p>
+            <p ng-repeat="strip in strips"><img src="{{strip.url[0]}}"/>{{strip.title}}</p>
         </script>
         <script type="text/ng-template" id="/user.html">
-            {{user}}
+            <h1>User details</h1>
+            Username: {{user}}
         </script>
         <script type="text/ng-template" id="/comics.html">
             <div>

@@ -3,6 +3,7 @@
 @bggrey: #aaa;
 @accent: #333;
 @hover: #777;
+@txt: #eee;
 
 * {
     font-family: 'Lato', sans-serif;
@@ -17,17 +18,20 @@ body {
 nav {
     padding: 10px;
     display: inline-block;
-}
-
-nav a {
-    padding: 3px;
-    text-decoration: none;
-    font-size: 14pt;
-    color: white;
-}
-
-a:hover {
-    background-color: @hover;
+    * {
+        padding: 3px;
+        text-decoration: none;
+        font-size: 14pt;
+    }
+    a {
+        color: white;
+        &:hover {
+            background-color: @hover;
+        }
+    }
+    span {
+        color: @txt;
+    }
 }
 
 #nav_right {
