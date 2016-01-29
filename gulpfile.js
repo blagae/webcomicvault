@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
-var sass = require('gulp-sass');
+var less = require('gulp-less');
 var minify = require('gulp-minify-css');
 var del = require('del');
 var lint = require('gulp-jshint');
@@ -19,8 +19,8 @@ gulp.task('clean', function () {
 });
 
 gulp.task('styles', function () {
-    return gulp.src('private/styles/*.css')
-        .pipe(sass())
+    return gulp.src('private/styles/*.less')
+        .pipe(less())
         .pipe(minify())
         .pipe(concat("style.css"))
         .pipe(gulp.dest('public/styles'));
@@ -28,7 +28,7 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
     return gulp.src('private/scripts/**/*.js')
-        //.pipe(uglify()) // TODO: uncomment
+        .pipe(uglify())
         .pipe(concat("ang.min.js"))
         .pipe(gulp.dest('public/scripts'));
 });
